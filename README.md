@@ -10,7 +10,7 @@
 git clone https://github.com/aliskoz/hw2_tp
 cd hw2_tp
 pip install -r requirements.txt
-pytest
+pytest hw.py
 
 ЗАПУСК (через среду разработки или терминал)
 cd hw2_tp
