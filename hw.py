@@ -71,6 +71,62 @@ class Recipe:
 # print(a.scale(2))
 
 
+class ShoppingList:
+    def __init__(self):
+        self._items = []
+
+    def add_recipe(self, recipe, portions):
+        if portions<=0:
+            raise ValueError("Количество порций должно быть положительным")
+        x = recipe.scale(portions)
+        for a in x.ingredients:
+            self._items.append((a, recipe.title))
+
+    def remove_recipe(self, title):
+        res = []
+        for a, b in self._items:
+            if b != title:
+                res.append((a, b))
+        self._items = res
+
+    def get_list(self):
+        d = {}
+        for a, b in self._items:
+            c = (a.name, a.unit)
+            if c in d:
+                d[c] += a.quantity
+            else:
+                d[c] = a.quantity
+        m = []
+        for i in d:
+            m.append(i)
+        m.sort()
+        res = []
+        for i in m:
+            name = i[0]
+            unit = i[1]
+            quantity = d[i]
+            res.append(Ingredient(name, quantity, unit))
+        return res
+
+    def __add__(self, other):
+        res = ShoppingList()
+        for a in self._items:
+            res._items.append(a)
+        for a in other._items:
+            res._items.append(a)
+        return res
+
+# a = Recipe("ГРИБНОЙ СУП",[Ingredient('картошка', 30, 'г')])
+# a.add_ingredient(Ingredient("гриб", 50, "г"))
+# s = ShoppingList()
+# s.add_recipe(a, 2)
+# print(s.get_list())
+# s.remove_recipe("ГРИБНОЙ СУП")
+# print(s.get_list())
+
+
+
 
 
 
